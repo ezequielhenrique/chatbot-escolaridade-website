@@ -1,0 +1,98 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&family=Space+Grotesk:wght@400;500;700&display=swap');
+
+:root {
+    --color01: #FAFAFA;
+    --color02: #1B2D4F;
+    --color03: #D3D3D3;
+    --color04: #000000;
+
+    --font:  'Poppins', sans-serif;
+}
+
+body {
+    font-family: var(--font);
+}
+
+header {
+    height: 10vh;
+    background: var(--color02);
+    color: var(--color01);
+}
+
+h1 {
+    padding: 1rem;
+    text-align: center;
+    font-size: 2rem;
+}
+
+main {
+    min-height: 80vh;
+}
+
+.login {
+    background: var(--color02);
+    color: var(--color01);
+}
+
+.container {
+    background: var(--color01);
+}
+
+.login-container {
+    max-width: 400px;
+    display: block;
+    margin: 0 auto;
+}
+
+.login-container img {
+    display: block;
+    margin: 0 auto;
+    padding: 2rem 0;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-label {
+    margin-bottom: 0.5rem;
+    font-size: 1.2rem;
+}
+
+.form-input {
+    font-family: var(--font);
+    color: var(--color04);
+    margin-bottom: 1rem;
+    padding: 0.4rem 0.8rem;
+    font-size: 0.9rem;
+    border: none;
+    border-radius: 5px;
+}
+
+.form-input:focus {
+    outline: none;
+}
+
+.login-submit {
+    font-family: var(--font);
+    color: var(--color02);
+    background: var(--color03);
+    font-weight: bold;
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+}
+
+footer {
+    height: 10vh;
+    background: var(--color02);
+    color: var(--color01);
+    text-align: center;
+}
+
+footer > p {
+    padding: 1.5rem;
+}
