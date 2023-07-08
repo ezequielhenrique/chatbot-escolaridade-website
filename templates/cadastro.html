@@ -3,7 +3,22 @@
 {% block main %}
 
 <main class="container">
-    <h2>Cadastro</h2>
+    <section id="cadastro-container">
+        <div class="area_cadastro">
+            <label class="form-label" for="usuario">Digite a pergunta a ser cadastrada</label>
+            <textarea class="form-input-textarea" type="text" id="pergunta"></textarea>
+            <button class="btn btn-cadastro" id="cadastrar">Cadastrar</button>
+            <br><br>
+            <a href="/menu" class="btn btn-secondary">Voltar ao Menu </a>
+        </div>
+    </section>
+    <script>
+        function exibirAlerta() {
+          alert("Pergunta cadastrada com sucesso!");
+        }
+        const cadastrar = document.querySelector('#cadastrar');
+        cadastrar.addEventListener('click', exibirAlerta);
+      </script>
 </main>
 
 {% endblock %}

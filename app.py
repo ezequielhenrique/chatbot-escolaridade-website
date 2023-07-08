@@ -17,5 +17,6 @@ def website_menu():
 
 
 @app.route("/menu/cadastro")
+@app.route("/cadastro")
 def menu():
     return render_template('cadastro.html')

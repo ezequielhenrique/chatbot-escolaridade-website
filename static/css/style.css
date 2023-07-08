@@ -5,12 +5,14 @@
     --color02: #1B2D4F;
     --color03: #D3D3D3;
     --color04: #000000;
+    --color05: #97a4b6;
 
     --font:  'Poppins', sans-serif;
 }
 
 body {
     font-family: var(--font);
+    background: var(--color05);
 }
 
 header {
@@ -27,15 +29,17 @@ h1 {
 
 main {
     min-height: 80vh;
+    background: var(--color05);
 }
 
 .login {
     background: var(--color02);
     color: var(--color01);
+    min-height: 100dvh;
 }
 
 .container {
-    background: var(--color01);
+    background: var(--color05);
 }
 
 .login-container {
@@ -96,3 +100,122 @@ footer {
 footer > p {
     padding: 1.5rem;
 }
+
+
+/*cards menu*/
+
+.card {
+    width: 300px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.card-body {
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    padding: 20px;
+}
+
+.card-title {
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.card-text {
+    color: #666;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    text-align: center;
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    color: #fff;
+}
+
+.btn-secondary:hover {
+    background-color: #545b62;
+}
+
+#cadastro-container{
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    align-items: center;
+    justify-content: center;
+    padding: clamp(1rem, 2vw, 2rem);
+}
+
+/*pag cadastro*/
+
+.area_cadastro {
+    width: 25%;
+    margin: 20px;
+    padding: 20px;
+    background-color: var(--color05);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  
+  .form-input-textarea {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical;
+  }
+  
+  .btn-voltar {
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    text-align: center;
+    text-decoration: none;
+    transition: background-color 0.3s;
+    background-color: #6c757d;
+    color: #fff;
+  }
+  
+  .btn-voltar:hover {
+    background-color: #545b62;
+  }
+  
+  .btn-cadastro{
+    outline: none;
+    border: none;
+    background-color: #007bff;
+    color: #fff;
+  }
+
+  .btn-cadastro:hover{
+    background-color: #0056b3;
+  }
