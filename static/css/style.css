@@ -37,6 +37,7 @@ main {
 .login {
     background: var(--color02);
     color: var(--color01);
+    
 }
 
 .container {
@@ -224,4 +225,16 @@ footer > p {
 
   .btn-cadastro:hover{
     background-color: #0056b3;
+  }
+
+  /*seleção de categorias*/
+
+  #categoria{
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    padding: 5px 10px;
   }
