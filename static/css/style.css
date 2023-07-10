@@ -35,7 +35,7 @@ main {
 .login {
     background: var(--color02);
     color: var(--color01);
-    min-height: 100dvh;
+    
 }
 
 .container {
