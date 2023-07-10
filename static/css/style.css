@@ -32,10 +32,11 @@ main {
     background: var(--color05);
 }
 
+/*  -------------------- Tela de login -------------------- */
+
 .login {
     background: var(--color02);
     color: var(--color01);
-    min-height: 100dvh;
 }
 
 .container {
@@ -82,12 +83,17 @@ main {
     font-family: var(--font);
     color: var(--color02);
     background: var(--color03);
+    cursor: pointer;
     font-weight: bold;
     margin-bottom: 1rem;
     padding: 0.5rem;
     font-size: 1rem;
     border: none;
     border-radius: 5px;
+}
+
+.login-submit:hover {
+    background-color: var(--color05);
 }
 
 footer {
@@ -102,7 +108,7 @@ footer > p {
 }
 
 
-/*cards menu*/
+/*  -------------------- cards menu  -------------------- */
 
 .card {
     width: 300px;
@@ -169,7 +175,7 @@ footer > p {
     padding: clamp(1rem, 2vw, 2rem);
 }
 
-/*pag cadastro*/
+/*  -------------------- pag cadastro  --------------------*/
 
 .area_cadastro {
     width: 25%;
