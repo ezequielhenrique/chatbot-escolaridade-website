@@ -6,7 +6,11 @@ app = Flask(__name__)
 @app.route("/", methods=['GET', 'POST'])
 def index():
     if request.method == 'POST':
-        return render_template('menu.html')
+        user = request.form.get('usuario', False)
+        user_password = request.form.get('senha', False)
+
+        if user != None and user_password != None:
+            return render_template('menu.html')
     else:
         return render_template('index.html')
 
@@ -16,7 +20,9 @@ def website_menu():
     return render_template('menu.html')
 
 
-@app.route("/menu/cadastro")
-@app.route("/cadastro")
+@app.route("/cadastro", methods=['GET', 'POST'])
 def menu():
-    return render_template('cadastro.html')
+    if request.method == 'POST':
+        return render_template('menu.html')
+    else:
+        return render_template('cadastro.html')

@@ -3,28 +3,28 @@
 {% block main %}
 
 <main class="container">
-    <section id="cadastro-container">
-        <div class="area_cadastro">
-            <label class="form-label" for="usuario">Selecione uma categoria</label>
-            <select name="Categorias" id="categoria">
-                <option value="1">Categoria 1</option>
-                <option value="2">Categoria 2</option>
-                <option value="3">Categoria 3</option>
-            </select>
-            <label class="form-label" for="usuario">Digite a pergunta a ser cadastrada</label>
-            <textarea class="form-input-textarea" type="text" id="pergunta"></textarea>
-            <button class="btn btn-cadastro" id="cadastrar">Cadastrar</button>
-            <br><br>
-            <a href="/menu" class="btn btn-secondary">Voltar ao Menu </a>
-        </div>
+    <section class="subcontainer">
+      <h2>Cadastro de pergunta</h2>
+      
+      <form action="/" method="POST" class="cadastro-form">
+        <label class="form-label form-item" for="categoria">Selecione uma categoria</label>
+        <select class="form-select form-item" name="Categorias" id="categoria">
+          <option value="1">Categoria 1</option>
+          <option value="2">Categoria 2</option>
+          <option value="3">Categoria 3</option>
+        </select>
+
+        <label class="form-label form-item" for="pergunta">Digite a pergunta a ser cadastrada</label>
+        <textarea class="form-textarea" type="text" id="pergunta"></textarea>
+
+        <label class="form-label form-item" for="resposta">Digite a resposta a ser cadastrada</label>
+        <textarea class="form-textarea" type="text" id="resposta"></textarea>
+
+        <input class="btn btn-primary" id="cadastrar" type="submit" value="Cadastrar">
+      </form>
+
+      <a href="/menu" class="btn btn-secondary form-item" id="back-button">Voltar ao Menu </a>
     </section>
-    <script>
-        function exibirAlerta() {
-          alert("Pergunta cadastrada com sucesso!");
-        }
-        const cadastrar = document.querySelector('#cadastrar');
-        cadastrar.addEventListener('click', exibirAlerta);
-      </script>
 </main>
 
 {% endblock %}

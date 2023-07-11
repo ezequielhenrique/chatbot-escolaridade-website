@@ -6,6 +6,7 @@
     --color03: #D3D3D3;
     --color04: #000000;
     --color05: #97a4b6;
+    --color06: #007bff;
 
     --font:  'Poppins', sans-serif;
 }
@@ -16,15 +17,19 @@ body {
 }
 
 header {
-    height: 10vh;
+    min-height: 10vh;
     background: var(--color02);
     color: var(--color01);
 }
 
-h1 {
+header h1 {
     padding: 1rem;
     text-align: center;
     font-size: 2rem;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;  
+    align-items: center;
 }
 
 main {
@@ -111,11 +116,19 @@ footer > p {
 
 /*  -------------------- cards menu  -------------------- */
 
+.menu-container {
+    display: flex;
+    flex-direction: column;
+    padding-top: 2rem;
+}
+
 .card {
+    margin: 0 auto;
     width: 300px;
     background-color: #fff;
     border-radius: 5px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 1.5rem;
 }
 
 .card-body {
@@ -143,15 +156,17 @@ footer > p {
     display: inline-block;
     padding: 10px 20px;
     border-radius: 5px;
-    font-size: 16px;
+    font-size: 1rem;
     text-align: center;
     text-decoration: none;
     transition: background-color 0.3s;
+    outline: none;
+    border: none;
 }
 
 .btn-primary {
-    background-color: #007bff;
-    color: #fff;
+    background-color: var(--color06);
+    color: var(--color01);
 }
 
 .btn-primary:hover {
@@ -159,77 +174,77 @@ footer > p {
 }
 
 .btn-secondary {
-    background-color: #6c757d;
-    color: #fff;
+    background-color: var(--color02);
+    color: var(--color01);
 }
 
 .btn-secondary:hover {
     background-color: #545b62;
 }
 
-#cadastro-container{
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    align-items: center;
-    justify-content: center;
-    padding: clamp(1rem, 2vw, 2rem);
-}
-
 /*  -------------------- pag cadastro  --------------------*/
 
-.area_cadastro {
-    width: 25%;
-    margin: 20px;
-    padding: 20px;
-    background-color: var(--color05);
+.form-item {
+    margin-bottom: 1rem;
+}
+
+.subcontainer {
+    text-align: right;
+    max-width: 800px;
+    min-height: 65vh;
+    background: var(--color01);
+    margin: 0 auto;
+    margin-bottom: 1.5rem;
+    border-radius: 0 0 15px 15px;
+    padding: 1.5rem;
+}
+
+.subcontainer h2 {
+    text-align: center;
+    font-weight: 500;
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.cadastro-form {
+    text-align: left;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
+}
+
+.form-select {
+    font-family: var(--font);
+    font-size: 0.9rem;
+    border: 1px solid var(--color05);
+    border-radius: 4px;
+}
+
+.form-select:focus {
+    outline: none;
+}
   
-  
-  .form-input-textarea {
+.form-textarea {
     display: block;
-    width: 100%;
     padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
+    font-family: var(--font);
+    font-size: 0.9rem;
+    margin-bottom: 2rem;
+    border: 1px solid var(--color05);
     border-radius: 4px;
     resize: vertical;
-  }
-  
-  .btn-voltar {
-    display: inline-block;
-    padding: 10px 20px;
-    border-radius: 5px;
-    font-size: 16px;
-    text-align: center;
-    text-decoration: none;
-    transition: background-color 0.3s;
-    background-color: #6c757d;
-    color: #fff;
-  }
-  
-  .btn-voltar:hover {
-    background-color: #545b62;
-  }
-  
-  .btn-cadastro{
+}
+
+.form-textarea:focus {
     outline: none;
-    border: none;
-    background-color: #007bff;
-    color: #fff;
-  }
+}
+  
+#back-button {
+    margin-top: 2rem;
+}
 
-  .btn-cadastro:hover{
-    background-color: #0056b3;
-  }
+/*seleção de categorias*/
 
-  /*seleção de categorias*/
-
-  #categoria{
+#categoria{
     display: flex;
     flex-direction: column;
     gap: 16px;
@@ -237,4 +252,12 @@ footer > p {
     justify-content: center;
     border-radius: 5px;
     padding: 5px 10px;
-  }
+}
+
+@media screen and (max-width: 820px) {
+    .form-container {
+        margin: 0;
+        min-height: 80vh;
+        border-radius: 0;
+    }
+}
