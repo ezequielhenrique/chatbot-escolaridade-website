@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+    
+{% block main %}
+
+<<<<<<< Updated upstream
+<main class="container">
+    <section class="subcontainer">
+        <form action="/" method="POST" class="cadastro-form">
+            <label class="form-label form-item" for="categoria">Selecione uma categoria</label>
+            <select class="form-select form-item" name="Categorias" id="categoria">
+                <option value="1">Categoria 1</option>
+                <option value="2">Categoria 2</option>
+                <option value="3">Categoria 3</option>
+            </select>
+            <button class="btn btn-primary" id="Visualizar" type="submit">Visualizar</button>
+        </form>
+        <ul class="lista-perguntas" id="lista-perguntas">
+
+        </ul>
+    </section>
+</main>
+
+<script href="{{ url_for('static', filename='js/script.js') }}"></script>
+
+=======
+<main class="container">     
+     <h2>Cadastro de pergunta</h2>
+
+</main>
+
+>>>>>>> Stashed changes
+{% endblock %}
