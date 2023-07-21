@@ -19,4 +19,16 @@ def website_menu():
 @app.route("/menu/cadastro")
 @app.route("/cadastro")
 def menu():
+<<<<<<< Updated upstream
     return render_template('cadastro.html')
+=======
+    if request.method == 'POST':
+        return render_template('menu.html')
+    else:
+        return render_template('cadastro.html')
+
+
+@app.route('/perguntas')
+def perguntas():
+    return render_template('perguntas.html')
+>>>>>>> Stashed changes
