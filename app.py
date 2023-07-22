@@ -31,3 +31,6 @@ def menu():
 @app.route('/perguntas')
 def perguntas():
     return render_template('perguntas.html')
+
+if(__name__ == "__main__"):
+    app.run(debug=True)
