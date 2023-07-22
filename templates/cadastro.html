@@ -4,26 +4,26 @@
 
 <main class="container">
     <section class="subcontainer">
-      <h2>Cadastro de pergunta</h2>
+        <h2>Cadastro de pergunta</h2>
       
-      <form action="/" method="POST" class="cadastro-form">
-        <label class="form-label form-item" for="categoria">Selecione uma categoria</label>
-        <select class="form-select form-item" name="Categorias" id="categoria">
-          <option value="1">Categoria 1</option>
-          <option value="2">Categoria 2</option>
-          <option value="3">Categoria 3</option>
-        </select>
+        <form action="/cadastro" method="POST" class="cadastro-form">
+			<label class="form-label form-item" for="categoria">Selecione uma categoria</label>
+			<select class="form-select form-item" name="categorias" id="categoria">
+				<option value="Matrícula">Matrícula</option>
+				<option value="Eventos">Eventos</option>
+				<option value="Transporte">Transporte</option>
+          	</select>
 
-        <label class="form-label form-item" for="pergunta">Digite a pergunta a ser cadastrada</label>
-        <textarea class="form-textarea" type="text" id="pergunta"></textarea>
+			<label class="form-label form-item" for="pergunta">Digite a pergunta a ser cadastrada</label>
+			<textarea class="form-textarea" type="text" id="pergunta" name="pergunta"></textarea>
 
-        <label class="form-label form-item" for="resposta">Digite a resposta a ser cadastrada</label>
-        <textarea class="form-textarea" type="text" id="resposta"></textarea>
+			<label class="form-label form-item" for="resposta">Digite a resposta a ser cadastrada</label>
+			<textarea class="form-textarea" type="text" id="resposta" name="resposta"></textarea>
 
-        <input class="btn btn-primary" id="cadastrar" type="submit" value="Cadastrar">
-      </form>
+			<input class="btn btn-primary" id="cadastrar" type="submit" value="Cadastrar">
+        </form>
 
-      <a href="/menu" class="btn btn-secondary form-item" id="back-button">Voltar ao Menu </a>
+      	<a href="/menu" class="btn btn-secondary form-item" id="back-button">Voltar ao Menu </a>
     </section>
 </main>
 
