@@ -189,6 +189,9 @@ footer > p {
 }
 
 .subcontainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     text-align: right;
     max-width: 800px;
     min-height: 65vh;
@@ -258,6 +261,7 @@ footer > p {
 
 .styled-table {
     border-collapse: collapse;
+    border-radius: 5%;
     margin-bottom: 2rem;
     font-size: 0.9rem;
     width: 100%;
@@ -295,6 +299,15 @@ footer > p {
     color: var(--color02);
     font-family: var(--font);
     font-size: 0.9rem;
+}
+
+.back-menu-button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    justify-self: center;
 }
 
 /* -------------- Estilos de responsividade -------------- */
