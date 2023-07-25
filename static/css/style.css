@@ -261,6 +261,7 @@ footer > p {
 /* -------------- Tabela ------------- */
 
 .styled-table {
+    text-align: center;
     border-collapse: collapse;
     border-radius: 5%;
     margin-bottom: 2rem;

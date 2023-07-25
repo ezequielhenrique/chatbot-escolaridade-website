@@ -52,6 +52,7 @@ def cadastro():
         pergunta = request.form.get('pergunta', False)
         resposta = request.form.get('resposta', False)
 
+        print(categoria, pergunta, resposta)
         nova_pergunta = Pergunta(categoria=categoria, pergunta=pergunta, resposta=resposta)
 
         try:
