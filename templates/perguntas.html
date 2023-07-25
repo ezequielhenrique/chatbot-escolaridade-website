@@ -4,7 +4,7 @@
 
 <main class="container">
     <section class="subcontainer">
-        <form action="/" method="POST" class="cadastro-form">
+        <form action="/perguntas" method="POST" class="cadastro-form">
             <label class="form-label form-item" for="categoria">Selecione uma categoria</label>
             <select class="form-select form-item" name="Categorias" id="categoria">
                 <option value="0">Geral</option>
@@ -12,8 +12,33 @@
                 <option value="2">Matrícula</option>
                 <option value="3">Eventos</option>
             </select>
-            <button class="btn btn-primary" id="Visualizar" type="submit">Visualizar</button>
+            <!--<button class="btn btn-primary" id="Visualizar" type="submit">Visualizar</button>-->
         </form>
+        <table class="styled-table">
+            <thead>
+                <tr>
+                    <th>Categoria</th>
+                    <th>Pergunta</th>
+                    <th>Resposta</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for p in perguntas %}
+                    <tr>
+                        <td>{{ p.categoria }}</td>
+                        <td>{{ p.pergunta }}</td>
+                        <td>{{ p.resposta }}</td>
+                        <td class="center-text">
+                            <a href="/delete/{{p.id}}">Delete</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <a href="/menu" class="btn btn-secondary back-menu-button" id="back-button" >Voltar ao Menu </a>
+
     </section>
 </main>
 
