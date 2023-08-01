@@ -1,27 +1,12 @@
 from flask import Flask, render_template, request, redirect
-from flask_sqlalchemy import SQLAlchemy
-from datetime import datetime
+from database import db
+from models import Pergunta
 
 
-# cria uma instância do aplicativo
 app = Flask(__name__)
-# configura um banco de dados SQLite para o aplicativo
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///database.db"
-# cria uma instância do banco de dados
-db = SQLAlchemy()
 
-# classes que irão definir as tabelas do banco de dados
-class Pergunta(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    categoria = db.Column(db.String(200), nullable=False)
-    pergunta = db.Column(db.String(200), nullable=False)
-    resposta = db.Column(db.String(200), nullable=False)
-    # date_created = db.Column(db.DateTime, default=datetime.utcnow)
-
-
-# inicializa o banco de dados
 db.init_app(app)
-# adciona as tabelas ao banco de dados
 with app.app_context():
     db.create_all()
 
@@ -74,7 +59,7 @@ def perguntas():
         return render_template('perguntas.html', perguntas=perguntas)
 
 
-@app.route('/delete/<int:id>')      # Rota para deletar as perguntas (Não é uma página)
+@app.route('/delete/<int:id>')
 def delete(id):
     pergunta_to_delete = Pergunta.query.get_or_404(id)
 
