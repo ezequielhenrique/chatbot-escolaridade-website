@@ -7,12 +7,12 @@
         <form action="/perguntas" method="POST" class="cadastro-form">
             <label class="form-label form-item" for="categoria">Selecione uma categoria</label>
             <select class="form-select form-item" name="Categorias" id="categoria">
-                <option value="0">Geral</option>
-                <option value="1">Transporte</option>
-                <option value="2">Matrícula</option>
-                <option value="3">Eventos</option>
+                <option value="Geral">Geral</option>
+                <option value="Transporte">Transporte</option>
+                <option value="Matrícula">Matrícula</option>
+                <option value="Eventos">Eventos</option>
             </select>
-            <!--<button class="btn btn-primary" id="Visualizar" type="submit">Visualizar</button>-->
+            <button class="btn btn-primary" id="Visualizar" type="submit">Visualizar</button>
         </form>
         <table class="styled-table">
             <thead>
@@ -30,14 +30,15 @@
                         <td>{{ p.pergunta }}</td>
                         <td>{{ p.resposta }}</td>
                         <td class="center-text">
-                            <a href="/delete/{{p.id}}">Delete</a>
+                            <a class="table-button" href="/atualiza/{{p.id}}">Atualizar</a>
+                            <a class="table-button" href="/delete/{{p.id}}" style="color: #C90202">Deletar</a>
                         </td>
                     </tr>
                 {% endfor %}
             </tbody>
         </table>
 
-        <a href="/menu" class="btn btn-secondary back-menu-button" id="back-button" >Voltar ao Menu </a>
+        <a href="/menu" class="btn btn-secondary back-menu-button">Voltar ao Menu </a>
 
     </section>
 </main>

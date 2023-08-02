@@ -43,7 +43,7 @@ def cadastro():
         try:
             db.session.add(nova_pergunta)
             db.session.commit()
-            return redirect('/menu')
+            return redirect('/cadastro')
         except:
             return 'Houve um erro ao tentar cadastrar a pergunta'
     else:
@@ -59,6 +59,26 @@ def perguntas():
         return render_template('perguntas.html', perguntas=perguntas)
 
 
+@app.route('/atualiza/<int:id>', methods=['GET', 'POST'])
+def atualiza(id):
+    pergunta = Pergunta.query.get_or_404(id)
+    print(id)
+
+    if request.method == 'POST':
+        pergunta.categoria = request.form.get('categorias', False)
+        pergunta.pergunta = request.form.get('pergunta', False)
+        pergunta.resposta = request.form.get('resposta', False)
+
+        try:
+            db.session.commit()
+
+            return redirect('/perguntas')
+        except:
+            return 'Ocorreu um problema ao tentar atualizar a pergunta'
+    else:
+        return render_template('atualiza.html', pergunta=pergunta)
+
+
 @app.route('/delete/<int:id>')
 def delete(id):
     pergunta_to_delete = Pergunta.query.get_or_404(id)
@@ -69,4 +89,4 @@ def delete(id):
 
         return redirect('/perguntas')
     except:
-        return 'Ocorreu um problema ao tentar deletar a tarefa'
+        return 'Ocorreu um problema ao tentar deletar a pergunta'
