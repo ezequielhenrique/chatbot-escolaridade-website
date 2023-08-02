@@ -6,7 +6,7 @@
     <section class="subcontainer">
         <form action="/perguntas" method="POST" class="cadastro-form">
             <label class="form-label form-item" for="categoria">Selecione uma categoria</label>
-            <select class="form-select form-item" name="Categorias" id="categoria">
+            <select class="form-select form-item" name="categorias" id="categoria">
                 <option value="Geral">Geral</option>
                 <option value="Transporte">Transporte</option>
                 <option value="Matrícula">Matrícula</option>
@@ -29,8 +29,8 @@
                         <td>{{ p.categoria }}</td>
                         <td>{{ p.pergunta }}</td>
                         <td>{{ p.resposta }}</td>
-                        <td class="center-text">
-                            <a class="table-button" href="/atualiza/{{p.id}}">Atualizar</a>
+                        <td class="table-links">
+                            <a class="table-button" href="/atualiza/{{p.id}}">Editar</a>
                             <a class="table-button" href="/delete/{{p.id}}" style="color: #C90202">Deletar</a>
                         </td>
                     </tr>

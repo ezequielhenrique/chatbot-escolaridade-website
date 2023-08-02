@@ -305,6 +305,11 @@ footer > p {
     font-size: 0.9rem;
 }
 
+.table-links {
+    display: flex;
+    flex-direction: column;
+}
+
 .table-button {
     display: inline-block;
     text-decoration: none;

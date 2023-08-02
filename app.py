@@ -53,7 +53,14 @@ def cadastro():
 @app.route('/perguntas', methods=['GET', 'POST'])
 def perguntas():
     if request.method == 'POST':
-        return render_template('menu.html')
+        categoria = request.form.get('categorias', False)
+
+        if categoria != "Geral":
+            perguntas = Pergunta.query.filter_by(categoria=categoria).all()
+
+            return render_template('perguntas.html', perguntas=perguntas)
+        else:
+            return redirect('/perguntas')
     else:
         perguntas = Pergunta.query.order_by(Pergunta.id).all()
         return render_template('perguntas.html', perguntas=perguntas)
