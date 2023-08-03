@@ -4,26 +4,26 @@
 
 <main class="container">
     <section class="subcontainer">
-        <h2>Cadastro de pergunta</h2>
+        <h2>Atualizar pergunta</h2>
       
-      <form action="/cadastro" method="POST" class="cadastro-form">
+      <form action="/atualiza/{{pergunta.id}}" method="POST" class="cadastro-form">
         <label class="form-label form-item" for="categoria">Selecione uma categoria</label>
         <select class="form-select form-item" name="categorias" id="categoria">
-          <option value="None">----</option>
+          <option value="{{pergunta.categoria}}">{{pergunta.categoria}}</option>
           <option value="Transporte">Transporte</option>
           <option value="Matrícula">Matrícula</option>
           <option value="Eventos">Eventos</option>
         </select>
 
 			<label class="form-label form-item" for="pergunta">Digite a pergunta a ser cadastrada</label>
-			<textarea class="form-textarea" type="text" id="pergunta" name="pergunta"></textarea>
+			<textarea class="form-textarea" type="text" id="pergunta" name="pergunta">{{pergunta.pergunta}}</textarea>
 
 			<label class="form-label form-item" for="resposta">Digite a resposta a ser cadastrada</label>
-			<textarea class="form-textarea" type="text" id="resposta" name="resposta"></textarea>
+			<textarea class="form-textarea" type="text" id="resposta" name="resposta">{{pergunta.resposta}}</textarea>
 
-			<input class="btn btn-primary" id="cadastrar" type="submit" value="Cadastrar">
+			<input class="btn btn-primary" id="atualizar" type="submit" value="Atualizar">
     </form>
-		<a href="/menu" class="btn btn-secondary form-item back-button">Voltar ao Menu </a>
+		<a href="/perguntas" class="btn btn-secondary form-item back-button">Voltar</a>
     </section>
 </main>
 

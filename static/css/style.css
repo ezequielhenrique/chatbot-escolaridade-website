@@ -32,6 +32,7 @@ header h1 {
     align-items: center;
 }
 
+
 main {
     min-height: 80vh;
     background: var(--color05);
@@ -213,6 +214,7 @@ footer > p {
     text-align: left;
     display: flex;
     flex-direction: column;
+    width: 100%;
 }
 
 .form-select {
@@ -241,7 +243,7 @@ footer > p {
     outline: none;
 }
   
-#back-button {
+.back-button {
     margin-top: 2rem;
 }
 
@@ -260,8 +262,10 @@ footer > p {
 /* -------------- Tabela ------------- */
 
 .styled-table {
+    text-align: center;
     border-collapse: collapse;
     border-radius: 5%;
+    margin-top: 1rem;
     margin-bottom: 2rem;
     font-size: 0.9rem;
     width: 100%;
@@ -301,13 +305,16 @@ footer > p {
     font-size: 0.9rem;
 }
 
-.back-menu-button {
+.table-links {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    justify-self: center;
+}
+
+.table-button {
+    display: inline-block;
+    text-decoration: none;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
 }
 
 /* -------------- Estilos de responsividade -------------- */
