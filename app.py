@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, redirect
 from database import db
 from models import Pergunta
-
+from flask_mail import Mail, Message
 
 app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///database.db"
@@ -97,3 +97,16 @@ def delete(id):
         return redirect('/perguntas')
     except:
         return 'Ocorreu um problema ao tentar deletar a pergunta'
+
+
+@app.route("/index_aluno")
+def index_aluno():
+    return render_template('index_aluno.html')
+
+@app.route("/sugestao")
+def sugestao():
+    return render_template('sugestao.html')
+
+@app.route('/sugestaoenv')
+def sugestaoenv():
+    return render_template('sugestaoenv.html')

@@ -326,3 +326,12 @@ footer > p {
         border-radius: 0;
     }
 }
+
+/*--------- ESTILOS PARA PÁGINAS DE SUGESTÃO DE PERGUNTAS ---------*/
+
+.login-title{
+    text-align: center;
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    color: var(--color01);
+}

@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+    
+{% block main %}
+
+<main class="container">
+    <section class="subcontainer">
+        <h2>Sugestão de pergunta</h2>
+      
+        <form action="/sugestaoenv" class="cadastro-form">
+            <label class="form-label form-item" for="categoria">Selecione uma categoria</label>
+            <select class="form-select form-item" name="categorias" id="categoria">
+                <option value="None">----</option>
+                <option value="Transporte">Transporte</option>
+                <option value="Matrícula">Matrícula</option>
+                <option value="Eventos">Eventos</option>
+            </select>
+
+            <label class="form-label form-item" for="pergunta">Digite a pergunta a ser sugerida</label>
+            <textarea class="form-textarea" type="text" id="pergunta_aluno" name="pergunta"></textarea>
+
+            <input class="btn btn-primary" id="cadastrar_aluno" type="submit" value="Cadastrar">
+        </form>
+    </section>
+</main>
+
+
+{% endblock %}
