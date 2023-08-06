@@ -9,17 +9,17 @@
       <form action="/cadastro" method="POST" class="cadastro-form">
         <label class="form-label form-item" for="categoria">Selecione uma categoria</label>
         <select class="form-select form-item" name="categorias" id="categoria">
-          <option value="None">----</option>
+          <option value="Geral">Geral</option>
           <option value="Transporte">Transporte</option>
           <option value="Matrícula">Matrícula</option>
           <option value="Eventos">Eventos</option>
         </select>
 
 			<label class="form-label form-item" for="pergunta">Digite a pergunta a ser cadastrada</label>
-			<textarea class="form-textarea" type="text" id="pergunta" name="pergunta"></textarea>
+			<textarea class="form-textarea" type="text" id="pergunta" name="pergunta" maxlength="200" required></textarea>
 
 			<label class="form-label form-item" for="resposta">Digite a resposta a ser cadastrada</label>
-			<textarea class="form-textarea" type="text" id="resposta" name="resposta"></textarea>
+			<textarea class="form-textarea" type="text" id="resposta" name="resposta" maxlength="400" required></textarea>
 
 			<input class="btn btn-primary" id="cadastrar" type="submit" value="Cadastrar">
     </form>

@@ -1,7 +1,5 @@
 const cadastrar = document.querySelector('#cadastrar');
 
-function exibirAlerta() {
+cadastrar.addEventListener('click', function (event) {
     alert("Pergunta cadastrada com sucesso!");
-}
-
-cadastrar.addEventListener('click', exibirAlerta);
+});
