@@ -2,6 +2,9 @@ from flask import Flask, render_template, request, redirect
 from database import db
 from models import Pergunta
 from flask_mail import Mail, Message
+from config import email, senha, key
+import ssl
+import smtplib
 
 app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///database.db"
@@ -107,6 +110,57 @@ def index_aluno():
 def sugestao():
     return render_template('sugestao.html')
 
-@app.route('/sugestaoenv')
-def sugestaoenv():
+#______     INICIALIZANDO O FLASK-MAIL     ______
+
+mail_settings = {
+    "MAIL_SERVER" : 'smtp.gmail.com',
+    "MAIL_PORT" : 587,
+    "MAIL_USE_TLS" : True,
+    "MAIL_USE_SSL" : True,
+    "MAIL_USERNAME" : email,
+    "MAIL_PASSWORD" : senha,
+    "SECRET_KEY" : key
+}
+
+mail = Mail(app)
+
+@app.route('/send', methods=['GET', 'POST'])
+def send():
+    if request.method == 'POST':
+        categoria = request.form.get('categoria_aluno')
+        pergunta = request.form.get('pergunta_aluno')
+        subject = 'Nova sugestão de pergunta'
+        msg = Message(
+                subject=subject,
+                sender=email, 
+                recipients=['escolaridadeuabj@gmail.com'],
+                body=f'''
+                Categoria - {categoria}
+                Pergunta - {pergunta}
+                
+            '''   )
+        try:
+            mail.send(msg)
+            return redirect('/sucesso')
+        except:
+            return redirect('/erro')
+
+#________________________________________________________
+
+@app.route('/sucesso')
+def sucesso():
     return render_template('sugestaoenv.html')
+
+@app.route('/erro')
+def erro():
+    return render_template('404.html')
+
+
+
+
+
+
+
+
+if __name__ == '__main__':
+    app.run(debug=True)
