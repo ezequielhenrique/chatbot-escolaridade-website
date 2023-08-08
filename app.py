@@ -131,7 +131,7 @@ def send():
         pergunta = request.form.get('pergunta_aluno')
         subject = 'Nova sugestão de pergunta'
         msg = Message(
-                subject=subject,
+                subject=subject,                                                          
                 sender=email, 
                 recipients=['escolaridadeuabj@gmail.com'],
                 body=f'''
@@ -144,6 +144,7 @@ def send():
             return redirect('/sucesso')
         except:
             return redirect('/erro')
+
 
 #________________________________________________________
 
