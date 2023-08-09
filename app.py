@@ -1,10 +1,7 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, flash
 from database import db
-from models import Pergunta
-from flask_mail import Mail, Message
-from config import email, senha, key
-import ssl
-import smtplib
+from models import Pergunta, Usuario
+from utils import criptografar_senha, comparar_senhas
 
 app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///database.db"
@@ -17,14 +14,50 @@ with app.app_context():
 
 @app.route("/", methods=['GET', 'POST'])
 def index():
+    error = None
+
     if request.method == 'POST':
         user = request.form.get('usuario', False)
         user_password = request.form.get('senha', False)
 
-        if user != None and user_password != None:
-            return render_template('menu.html')
+        login = Usuario.query.filter_by(usuario=user).first()
+
+        if login:
+            if comparar_senhas(login.senha, user_password):
+                return redirect('/menu')
+            else:
+                error = 'Usuário ou senha incorretos'
+                return render_template('index.html', error=error)
+        else:
+            error = 'Usuário não cadastrado'
+            return render_template('index.html', error=error)
     else:
-        return render_template('index.html')
+        return render_template('index.html', error=error)
+    
+
+@app.route('/cadastro-usuario', methods=['GET', 'POST'])
+def cadastro_usuario():
+    error = None
+
+    if request.method == 'POST':
+        user = request.form.get('usuario', False)
+        user_password = criptografar_senha(request.form.get('senha', False))
+        novo_usuario = Usuario(user, user_password)
+
+        if Usuario.query.filter_by(usuario=user).first():
+            error = 'Nome de usuário já existe'
+            return render_template('casdastro-usuario.html', error=error)
+        else:
+            try:
+                db.session.add(novo_usuario)
+                db.session.commit()
+
+                return redirect('/')
+            except:
+                error = 'Houve um erro ao cadastrar o usuario'
+                return render_template('casdastro-usuario.html', error=error)
+    else:
+        return render_template('casdastro-usuario.html', error=error)
 
 
 @app.route("/menu")
@@ -34,13 +67,11 @@ def website_menu():
 
 @app.route("/cadastro", methods=['GET', 'POST'])
 def cadastro():
-    print(request.method)
     if request.method == 'POST':
         categoria = request.form.get('categorias', False)
         pergunta = request.form.get('pergunta', False)
         resposta = request.form.get('resposta', False)
 
-        print(categoria, pergunta, resposta)
         nova_pergunta = Pergunta(categoria=categoria, pergunta=pergunta, resposta=resposta)
 
         try:
@@ -72,7 +103,6 @@ def perguntas():
 @app.route('/atualiza/<int:id>', methods=['GET', 'POST'])
 def atualiza(id):
     pergunta = Pergunta.query.get_or_404(id)
-    print(id)
 
     if request.method == 'POST':
         pergunta.categoria = request.form.get('categorias', False)

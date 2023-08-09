@@ -16,10 +16,10 @@
         </select>
 
 			<label class="form-label form-item" for="pergunta">Digite a pergunta a ser cadastrada</label>
-			<textarea class="form-textarea" type="text" id="pergunta" name="pergunta">{{pergunta.pergunta}}</textarea>
+			<textarea class="form-textarea" type="text" id="pergunta" name="pergunta" required>{{pergunta.pergunta}}</textarea>
 
 			<label class="form-label form-item" for="resposta">Digite a resposta a ser cadastrada</label>
-			<textarea class="form-textarea" type="text" id="resposta" name="resposta">{{pergunta.resposta}}</textarea>
+			<textarea class="form-textarea" type="text" id="resposta" name="resposta" required>{{pergunta.resposta}}</textarea>
 
 			<input class="btn btn-primary" id="atualizar" type="submit" value="Atualizar">
     </form>
