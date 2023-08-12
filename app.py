@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect, flash
 from database import db
-from models import Pergunta, Usuario
+from models import Pergunta, Usuario, Sugestao
 from utils import criptografar_senha, comparar_senhas
 
 
@@ -135,6 +135,28 @@ def delete(id):
 
 #________________________________ INICIALIZAÇÃO DA INTEGRAÇÃO DO SITE DO ALUNO ____________________________________
 
+
+@app.route("/send", methods=['GET', 'POST'])
+def send():
+    if request.method == 'POST':
+        categoria = request.form.get('categoria_aluno', False)
+        pergunta = request.form.get('pergunta_aluno', False)
+
+        sugestao = Sugestao(categoria=categoria, pergunta=pergunta)
+
+        try:
+            db.session.add(sugestao)
+            db.session.commit()
+            return redirect('/sucesso')
+        except:
+            return redirect('/erro')
+    else:
+        return redirect('/sugestao')
+
+@app.route('/sugestao')
+def sugestao():
+    return render_template('sugestao.html')
+
 @app.route('/sucesso')
 def sucesso():
     return render_template('sugestaoenv.html')
@@ -143,6 +165,36 @@ def sucesso():
 def erro():
     return render_template('404.html')
 
+@app.route('/index_aluno')
+def index_aluno():
+    return render_template('index_aluno.html')
+
+@app.route('/sugestoes_enviadas')
+def sugestoes_enviadas():
+    return render_template('sugestoes_enviadas.html')
+
+@app.route('/visualizar_sugestoes', methods=['GET', 'POST'])
+def visualizar_sugestoes():
+    categoria = request.form.get('categoria_sugestao', False)
+    if request.method == 'POST':
+        if categoria == "Geral":
+            sugestao = Sugestao.query.order_by(Sugestao.id).all() 
+        else:
+            sugestao = Sugestao.query.filter_by(categoria=request.form.get('categoria_sugestao', False)).all()
+    else:
+        sugestao = Sugestao.query.order_by(Sugestao.id).all()
+    return render_template('sugestoes_enviadas.html', sugestoes=sugestao)
+
+    
+@app.route('/delete_sugestao/<int:id>', methods=['GET', 'POST'])
+def delete_sugestao(id):
+    sugestao_to_delete = Sugestao.query.get_or_404(id)
+    try:
+        db.session.delete(sugestao_to_delete)
+        db.session.commit()
+        return redirect('/visualizar_sugestoes')
+    except:
+        return redirect('/erro')
 
 #____________________________ FLASK RUN ________________________
 if __name__ == '__main__':

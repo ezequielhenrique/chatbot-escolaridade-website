@@ -1,4 +1,5 @@
 from database import db
+from sqlalchemy import Column, Integer, String
 
 
 class Pergunta(db.Model):
@@ -26,3 +27,13 @@ class Usuario(db.Model):
 
     def __repr__(self):
         return f'<Usuario {self.usuario}>'
+    
+class Sugestao(db.Model):
+    __tablename__ = 'sugestoes'
+    id = Column(Integer, primary_key=True)
+    pergunta = Column(String(200), nullable=False)
+    categoria = Column(String(200), nullable=False)
+
+    def __init__(self, pergunta, categoria):
+        self.pergunta = pergunta
+        self.categoria = categoria
