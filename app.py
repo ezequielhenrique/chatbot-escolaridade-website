@@ -196,6 +196,23 @@ def delete_sugestao(id):
     except:
         return redirect('/erro')
 
+@app.route('/adicionar_ao_banco/<int:id>', methods=['GET', 'POST'])
+def adicionar_ao_banco(id):
+    categoria = Sugestao.query.get_or_404(id).categoria
+    pergunta = Sugestao.query.get_or_404(id).pergunta
+    resposta = 'Clique em "Editar" para adicionar resposta'
+    sugestao_to_delete = Sugestao.query.get_or_404(id)
+    nova_pergunta = Pergunta(categoria=categoria, pergunta=pergunta, resposta=resposta)
+    try:
+        db.session.add(nova_pergunta)
+        db.session.commit()
+        db.session.delete(sugestao_to_delete)
+        db.session.commit()
+        return redirect('/perguntas')
+    except:
+        return redirect('/erro')
+        
+
 #____________________________ FLASK RUN ________________________
 if __name__ == '__main__':
     app.run()
