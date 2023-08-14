@@ -132,9 +132,11 @@ def delete(id):
     except:
         return 'Ocorreu um problema ao tentar deletar a pergunta'
 
-@app.route('/perguntas/{pgEspecifica}',methods=['GET'])
+@app.route('/perguntas/<pgEspecifica>')
 def respondeAi(pgEspecifica):
-    pg = Pergunta.query.all()
-    for i in pg:
-        if pgEspecifica == i.pergunta:
-            return render_template('pgEspecifica.html', perguntas=pg)
+    perguntas = Pergunta.query.all()
+    # pgEspecifica = "como está indo a matrícula?"
+    pgEspecifica += '?'
+    for i in perguntas:
+        if i.pergunta == (pgEspecifica or (pgEspecifica + "?")):
+            return render_template('pgEspecifica.html', perguntas=i)
