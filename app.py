@@ -131,3 +131,10 @@ def delete(id):
         return redirect('/perguntas')
     except:
         return 'Ocorreu um problema ao tentar deletar a pergunta'
+
+@app.route('/perguntas/{pgEspecifica}',methods=['GET'])
+def respondeAi(pgEspecifica):
+    pg = Pergunta.query.all()
+    for i in pg:
+        if pgEspecifica == i.pergunta:
+            return render_template('pgEspecifica.html', perguntas=pg)
