@@ -1,4 +1,5 @@
-from flask import Flask, render_template, request, redirect, flash
+from flask import Flask, render_template, request, redirect
+from flask_login import LoginManager, login_required, logout_user, login_user, current_user
 from database import db
 from models import Pergunta, Usuario, Sugestao
 from utils import criptografar_senha, comparar_senhas
@@ -6,12 +7,28 @@ from utils import criptografar_senha, comparar_senhas
 
 app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///database.db"
+app.config['SECRET_KEY'] = 'equipi'
 
 db.init_app(app)
 with app.app_context():
     db.create_all()
 
-#  ----- rotas do site -----
+# ========================= Código para configurar e gerenciar login =========================
+
+login_manager = LoginManager()
+login_manager.init_app(app)
+
+@login_manager.user_loader
+def user_loader(user_id):
+    return Usuario.query.get(user_id)
+
+@app.route("/logout")
+@login_required
+def logout():
+    logout_user()
+    return redirect('/')
+
+# ====================================== Rotas do Site =========================================
 
 @app.route("/", methods=['GET', 'POST'])
 def index():
@@ -25,6 +42,7 @@ def index():
 
         if login:
             if comparar_senhas(login.senha, user_password):
+                login_user(login)
                 return redirect('/menu')
             else:
                 error = 'Usuário ou senha incorretos'
@@ -62,11 +80,13 @@ def cadastro_usuario():
 
 
 @app.route("/menu")
+@login_required
 def website_menu():
     return render_template('menu.html')
 
 
 @app.route("/cadastro", methods=['GET', 'POST'])
+@login_required
 def cadastro():
     if request.method == 'POST':
         categoria = request.form.get('categorias', False)
@@ -86,6 +106,7 @@ def cadastro():
 
 
 @app.route('/perguntas', methods=['GET', 'POST'])
+@login_required
 def perguntas():
     if request.method == 'POST':
         categoria = request.form.get('categorias', False)
@@ -102,6 +123,7 @@ def perguntas():
 
 
 @app.route('/atualiza/<int:id>', methods=['GET', 'POST'])
+@login_required
 def atualiza(id):
     pergunta = Pergunta.query.get_or_404(id)
 
@@ -121,6 +143,7 @@ def atualiza(id):
 
 
 @app.route('/delete/<int:id>')
+@login_required
 def delete(id):
     pergunta_to_delete = Pergunta.query.get_or_404(id)
 
@@ -131,10 +154,15 @@ def delete(id):
         return redirect('/perguntas')
     except:
         return 'Ocorreu um problema ao tentar deletar a pergunta'
-    
 
-#________________________________ INICIALIZAÇÃO DA INTEGRAÇÃO DO SITE DO ALUNO ____________________________________
 
+@app.route('/horarios-disciplinas')
+@login_required
+def horarios_disciplinas():
+    return render_template('horarios-disciplinas.html')
+
+
+# ================================== Rotas para acesso dos alunos =========================================
 
 @app.route("/send", methods=['GET', 'POST'])
 def send():
@@ -211,8 +239,18 @@ def adicionar_ao_banco(id):
         return redirect('/perguntas')
     except:
         return redirect('/erro')
-        
 
-#____________________________ FLASK RUN ________________________
+# ====================================== Redirecionamneto telegram =========================================
+
+@app.route('/<pgEspecifica>', methods=['GET', 'POST'])
+def respondeAi(pgEspecifica):
+    if request.method == "GET":
+        perguntas = Pergunta.query.all()
+        for i in perguntas:
+            if i.pergunta == (pgEspecifica + "?") or i.pergunta == pgEspecifica:
+                return i.resposta
+        return "Desculpe, sua dúvida não está em nosso banco de dado"
+
+# ======================================== Execução do aplicativo =========================================
 if __name__ == '__main__':
     app.run()
