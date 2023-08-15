@@ -7,9 +7,19 @@
     <link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.ico') }}" type="image/x-icon">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/reset.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
 <body>
     <header>
+        {% if current_user.is_authenticated %}
+        <div class="user-info">
+            <i class='bx bxs-user-circle' ></i>
+            <div class="user-info-text">
+                <p>{{ current_user.usuario }}</p>
+                <a href="/logout">Sair</a>
+            </div>
+        </div>
+        {% endif %}
         <h1>Chatbot Escolaridade</h1>
     </header>
     {% block main %}

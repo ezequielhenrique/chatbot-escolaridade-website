@@ -13,14 +13,14 @@
           <option value="Transporte">Transporte</option>
           <option value="Matrícula">Matrícula</option>
           <option value="Eventos">Eventos</option>
+          <option value="Estagios">Estagios</option>
         </select>
 
 			<label class="form-label form-item" for="pergunta">Digite a pergunta a ser cadastrada</label>
-			<textarea class="form-textarea" type="text" id="pergunta" name="pergunta" maxlength="200" required></textarea>
+			<textarea class="form-textarea" type="text" id="pergunta" name="pergunta" maxlength="200" required>{{pergunta}}</textarea>
 
 			<label class="form-label form-item" for="resposta">Digite a resposta a ser cadastrada</label>
 			<textarea class="form-textarea" type="text" id="resposta" name="resposta" maxlength="400" required></textarea>
-
 			<input class="btn btn-primary" id="cadastrar" type="submit" value="Cadastrar">
     </form>
 		<a href="/menu" class="btn btn-secondary form-item back-button">Voltar ao Menu </a>
