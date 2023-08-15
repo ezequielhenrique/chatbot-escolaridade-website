@@ -132,11 +132,13 @@ def delete(id):
     except:
         return 'Ocorreu um problema ao tentar deletar a pergunta'
 
-@app.route('/perguntas/<pgEspecifica>')
+@app.route('/perguntas/<pgEspecifica>', methods=['GET', 'POST'])
 def respondeAi(pgEspecifica):
-    perguntas = Pergunta.query.all()
-    # pgEspecifica = "como está indo a matrícula?"
-    pgEspecifica += '?'
-    for i in perguntas:
-        if i.pergunta == (pgEspecifica or (pgEspecifica + "?")):
-            return render_template('pgEspecifica.html', perguntas=i)
+    if request.method == "GET":
+        perguntas = Pergunta.query.all()
+        for i in perguntas:
+            if i.pergunta == (pgEspecifica + "?") or i.pergunta == pgEspecifica:
+                return i.resposta
+        return "Desculpe, sua dúvida não está em nosso banco de dado" 
+
+app.run()
