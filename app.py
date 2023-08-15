@@ -240,10 +240,7 @@ def adicionar_ao_banco(id):
     except:
         return redirect('/erro')
 
-
-# ======================================== Execução do aplicativo =========================================
-if __name__ == '__main__':
-    app.run()
+# ====================================== Redirecionamneto telegram =========================================
 
 @app.route('/<pgEspecifica>', methods=['GET', 'POST'])
 def respondeAi(pgEspecifica):
@@ -252,5 +249,8 @@ def respondeAi(pgEspecifica):
         for i in perguntas:
             if i.pergunta == (pgEspecifica + "?") or i.pergunta == pgEspecifica:
                 return i.resposta
-        return "Desculpe, sua dúvida não está em nosso banco de dado" 
+        return "Desculpe, sua dúvida não está em nosso banco de dado"
 
+# ======================================== Execução do aplicativo =========================================
+if __name__ == '__main__':
+    app.run()
