@@ -11,7 +11,7 @@
 </head>
 <body>
     <header>
-        {% if current_user.is_authenticated %}
+        {% if current_user.is_authenticated and not request.path=="/" and not request.path=="/cadastro-usuario" %}
         <div class="user-info">
             <i class='bx bxs-user-circle' ></i>
             <div class="user-info-text">

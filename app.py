@@ -35,8 +35,8 @@ def index():
     error = None
 
     if request.method == 'POST':
-        user = request.form.get('usuario', False)
-        user_password = request.form.get('senha', False)
+        user = request.form.get('usuario', False).strip()
+        user_password = request.form.get('senha', False).strip()
 
         login = Usuario.query.filter_by(usuario=user).first()
 
@@ -59,9 +59,14 @@ def cadastro_usuario():
     error = None
 
     if request.method == 'POST':
-        user = request.form.get('usuario', False)
-        user_password = criptografar_senha(request.form.get('senha', False))
+        user = request.form.get('usuario', False).strip()
+        user_password = criptografar_senha(request.form.get('senha', False)).strip()
         novo_usuario = Usuario(user, user_password)
+
+        for char in user:
+            if char == ' ':
+                error = 'O nome de usuário não deve conter espaços'
+                return render_template('casdastro-usuario.html', error=error)
 
         if Usuario.query.filter_by(usuario=user).first():
             error = 'Nome de usuário já existe'
