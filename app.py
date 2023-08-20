@@ -2,7 +2,8 @@ from flask import Flask, render_template, request, redirect
 from flask_login import LoginManager, login_required, logout_user, login_user, current_user
 from database import db
 from models import Pergunta, Usuario, Sugestao
-from utils import criptografar_senha, comparar_senhas
+from utils import criptografar_senha, comparar_senhas, gerar_horarios, deleta_arquivos
+import os
 
 
 app = Flask(__name__)
@@ -161,10 +162,23 @@ def delete(id):
         return 'Ocorreu um problema ao tentar deletar a pergunta'
 
 
-@app.route('/horarios-disciplinas')
+@app.route('/horarios-disciplinas', methods=['GET', 'POST'])
 @login_required
 def horarios_disciplinas():
-    return render_template('horarios-disciplinas.html')
+    if request.method == 'POST':
+        arquivo = request.files.get('upload')
+
+        nome_do_arquivo = arquivo.filename
+        path = '.\\static\\files\\horario-pdf\\' + nome_do_arquivo
+        
+        deleta_arquivos('.\\static\\files\\horario-pdf\\')
+        arquivo.save(path)
+
+        gerar_horarios(path, 'static\\files\\horario-images\\')
+
+        return redirect('/horarios-disciplinas')
+    else:
+        return render_template('horarios-disciplinas.html')
 
 
 # ================================== Rotas para acesso dos alunos =========================================
