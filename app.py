@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, send_from_directory
 from flask_login import LoginManager, login_required, logout_user, login_user, current_user
 from database import db
 from models import Pergunta, Usuario, Sugestao
@@ -170,7 +170,7 @@ def horarios_disciplinas():
 
         nome_do_arquivo = arquivo.filename
         path = '.\\static\\files\\horario-pdf\\' + nome_do_arquivo
-        
+
         deleta_arquivos('.\\static\\files\\horario-pdf\\')
         arquivo.save(path)
 
@@ -269,6 +269,12 @@ def respondeAi(pgEspecifica):
             if i.pergunta == (pgEspecifica + "?") or i.pergunta == pgEspecifica:
                 return i.resposta
         return "Desculpe, sua dúvida não está em nosso banco de dado"
+    
+
+@app.route('/arquivos/<nome_do_arquivo>', methods=['GET'])
+def get_arquivo(nome_do_arquivo):
+    diretorio = '.\\static\\files\\horario-images'
+    return send_from_directory(diretorio, nome_do_arquivo, as_attachment=False)
 
 # ======================================== Execução do aplicativo =========================================
 if __name__ == '__main__':
