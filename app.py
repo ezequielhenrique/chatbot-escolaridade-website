@@ -178,7 +178,21 @@ def horarios_disciplinas():
 
         return redirect('/horarios-disciplinas')
     else:
-        return render_template('horarios-disciplinas.html')
+        arquivo = os.listdir('.\\static\\files\\horario-pdf\\')
+        
+        if len(arquivo) == 0:
+            return render_template('horarios-disciplinas.html', arquivos=None)
+        else:
+            return render_template('horarios-disciplinas.html', arquivos=arquivo[0])
+
+
+@app.route('/delete-horario')
+@login_required
+def delete_horario():
+    deleta_arquivos('.\\static\\files\\horario-pdf\\')
+    deleta_arquivos('.\\static\\files\\horario-images\\')
+    
+    return redirect('/horarios-disciplinas')
 
 
 # ================================== Rotas para acesso dos alunos =========================================
@@ -274,6 +288,12 @@ def respondeAi(pgEspecifica):
 @app.route('/arquivos/<nome_do_arquivo>', methods=['GET'])
 def get_arquivo(nome_do_arquivo):
     diretorio = '.\\static\\files\\horario-images'
+    return send_from_directory(diretorio, nome_do_arquivo, as_attachment=False)
+
+
+@app.route('/horario-pdf/<nome_do_arquivo>', methods=['GET'])
+def get_arquivo_pdf(nome_do_arquivo):
+    diretorio = '.\\static\\files\\horario-pdf'
     return send_from_directory(diretorio, nome_do_arquivo, as_attachment=False)
 
 # ======================================== Execução do aplicativo =========================================
