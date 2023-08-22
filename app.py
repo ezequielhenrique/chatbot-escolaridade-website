@@ -1,8 +1,10 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, send_from_directory
 from flask_login import LoginManager, login_required, logout_user, login_user, current_user
 from database import db
 from models import Pergunta, Usuario, Sugestao
-from utils import criptografar_senha, comparar_senhas, Similaridade
+from utils import criptografar_senha, comparar_senhas, gerar_horarios, deleta_arquivos, Similaridade
+import os
+
 
 
 app = Flask(__name__)
@@ -35,8 +37,8 @@ def index():
     error = None
 
     if request.method == 'POST':
-        user = request.form.get('usuario', False)
-        user_password = request.form.get('senha', False)
+        user = request.form.get('usuario', False).strip()
+        user_password = request.form.get('senha', False).strip()
 
         login = Usuario.query.filter_by(usuario=user).first()
 
@@ -59,9 +61,14 @@ def cadastro_usuario():
     error = None
 
     if request.method == 'POST':
-        user = request.form.get('usuario', False)
-        user_password = criptografar_senha(request.form.get('senha', False))
+        user = request.form.get('usuario', False).strip()
+        user_password = criptografar_senha(request.form.get('senha', False)).strip()
         novo_usuario = Usuario(user, user_password)
+
+        for char in user:
+            if char == ' ':
+                error = 'O nome de usuário não deve conter espaços'
+                return render_template('casdastro-usuario.html', error=error)
 
         if Usuario.query.filter_by(usuario=user).first():
             error = 'Nome de usuário já existe'
@@ -156,10 +163,37 @@ def delete(id):
         return 'Ocorreu um problema ao tentar deletar a pergunta'
 
 
-@app.route('/horarios-disciplinas')
+@app.route('/horarios-disciplinas', methods=['GET', 'POST'])
 @login_required
 def horarios_disciplinas():
-    return render_template('horarios-disciplinas.html')
+    if request.method == 'POST':
+        arquivo = request.files.get('upload')
+
+        nome_do_arquivo = arquivo.filename
+        path = '.\\static\\files\\horario-pdf\\' + nome_do_arquivo
+
+        deleta_arquivos('.\\static\\files\\horario-pdf\\')
+        arquivo.save(path)
+
+        gerar_horarios(path, 'static\\files\\horario-images\\')
+
+        return redirect('/horarios-disciplinas')
+    else:
+        arquivo = os.listdir('.\\static\\files\\horario-pdf\\')
+        
+        if len(arquivo) == 0:
+            return render_template('horarios-disciplinas.html', arquivos=None)
+        else:
+            return render_template('horarios-disciplinas.html', arquivos=arquivo[0])
+
+
+@app.route('/delete-horario')
+@login_required
+def delete_horario():
+    deleta_arquivos('.\\static\\files\\horario-pdf\\')
+    deleta_arquivos('.\\static\\files\\horario-images\\')
+    
+    return redirect('/horarios-disciplinas')
 
 
 # ================================== Rotas para acesso dos alunos =========================================
