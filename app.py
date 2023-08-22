@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, redirect
 from flask_login import LoginManager, login_required, logout_user, login_user, current_user
 from database import db
 from models import Pergunta, Usuario, Sugestao
-from utils import criptografar_senha, comparar_senhas
+from utils import criptografar_senha, comparar_senhas, Similaridade
 
 
 app = Flask(__name__)
@@ -246,10 +246,23 @@ def adicionar_ao_banco(id):
 def respondeAi(pgEspecifica):
     if request.method == "GET":
         perguntas = Pergunta.query.all()
+
+        proximidade = 0
+        resposta = None
+
         for i in perguntas:
-            if i.pergunta == (pgEspecifica + "?") or i.pergunta == pgEspecifica:
-                return i.resposta
-        return "Desculpe, sua dúvida não está em nosso banco de dado"
+            resultado = Similaridade(i.pergunta, pgEspecifica)
+
+            if(resultado > proximidade):
+                proximidade = resultado
+                resposta = i.resposta
+
+        # if i.pergunta == (pgEspecifica + "?") or i.pergunta == pgEspecifica:
+
+        if proximidade > 0.2:
+            return resposta
+
+        return "Desculpe, sua dúvida não está em nosso banco de dados"
 
 # ======================================== Execução do aplicativo =========================================
 if __name__ == '__main__':
