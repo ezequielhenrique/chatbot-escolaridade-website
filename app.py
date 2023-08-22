@@ -298,6 +298,19 @@ def respondeAi(pgEspecifica):
 
         return "Desculpe, sua dúvida não está em nosso banco de dados"
 
+
+@app.route('/arquivos/<nome_do_arquivo>', methods=['GET'])
+def get_arquivo(nome_do_arquivo):
+    diretorio = '.\\static\\files\\horario-images'
+    return send_from_directory(diretorio, nome_do_arquivo, as_attachment=False)
+
+
+@app.route('/horario-pdf/<nome_do_arquivo>', methods=['GET'])
+def get_arquivo_pdf(nome_do_arquivo):
+    diretorio = '.\\static\\files\\horario-pdf'
+    return send_from_directory(diretorio, nome_do_arquivo, as_attachment=False)
+
+
 # ======================================== Execução do aplicativo =========================================
 if __name__ == '__main__':
     app.run()
