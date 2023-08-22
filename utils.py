@@ -1,4 +1,7 @@
 import hashlib
+import sklearn
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
 import fitz     # PyMuPDF
 import shutil, os
 
@@ -12,6 +15,15 @@ def comparar_senhas(hash_senha, senha_usuario):
         return True
     else:
         return False
+
+def Similaridade(text1, text2):
+    # Converte os texto para vetores TF-IDF
+    vectorizer = TfidfVectorizer()
+    vectors = vectorizer.fit_transform([text1, text2])
+
+    # Calcula a similaridade do cosseno dos dois vetores
+    similarity = cosine_similarity(vectors)
+    return similarity[0][1]
     
 
 def converte_pdf_em_imagens(doc, mat, path):
