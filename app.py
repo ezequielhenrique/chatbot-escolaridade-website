@@ -2,8 +2,9 @@ from flask import Flask, render_template, request, redirect, send_from_directory
 from flask_login import LoginManager, login_required, logout_user, login_user, current_user
 from database import db
 from models import Pergunta, Usuario, Sugestao
-from utils import criptografar_senha, comparar_senhas, gerar_horarios, deleta_arquivos
+from utils import criptografar_senha, comparar_senhas, gerar_horarios, deleta_arquivos, Similaridade
 import os
+
 
 
 app = Flask(__name__)
@@ -279,22 +280,23 @@ def adicionar_ao_banco(id):
 def respondeAi(pgEspecifica):
     if request.method == "GET":
         perguntas = Pergunta.query.all()
+
+        proximidade = 0
+        resposta = None
+
         for i in perguntas:
-            if i.pergunta == (pgEspecifica + "?") or i.pergunta == pgEspecifica:
-                return i.resposta
-        return "Desculpe, sua dúvida não está em nosso banco de dado"
-    
+            resultado = Similaridade(i.pergunta, pgEspecifica)
 
-@app.route('/arquivos/<nome_do_arquivo>', methods=['GET'])
-def get_arquivo(nome_do_arquivo):
-    diretorio = '.\\static\\files\\horario-images'
-    return send_from_directory(diretorio, nome_do_arquivo, as_attachment=False)
+            if(resultado > proximidade):
+                proximidade = resultado
+                resposta = i.resposta
 
+        # if i.pergunta == (pgEspecifica + "?") or i.pergunta == pgEspecifica:
 
-@app.route('/horario-pdf/<nome_do_arquivo>', methods=['GET'])
-def get_arquivo_pdf(nome_do_arquivo):
-    diretorio = '.\\static\\files\\horario-pdf'
-    return send_from_directory(diretorio, nome_do_arquivo, as_attachment=False)
+        if proximidade > 0.2:
+            return resposta
+
+        return "Desculpe, sua dúvida não está em nosso banco de dados"
 
 # ======================================== Execução do aplicativo =========================================
 if __name__ == '__main__':
